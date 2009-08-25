@@ -1,0 +1,44 @@
+== JPicMov
+
+A simple tool for copying and renaming images from cameras. It started as an CLI tool (see pivmoc).
+Recently I added a (second) desktop application layer. This layer uses Swing and JRuby.
+
+This is app is far from ready but is useful for the simple case...
+
+TODO
+
+- Update model with start_button_action_performed
+
+- validate folders on "start" (no empty folders, ... (no empty folders, ...))
+
+- count files in selected folder (after folder_chooser and focus_lost [manual edit of folders])
+
+- shortcuts for modifying font size (str-0, str--, str-+)
+
+- support settings
+
+- example text should use current modifier
+
+- create github project
+
+- Gradient bottom_panel
+
+- error handling (no empty folders, just existing folders...)
+
+- picmov should use block for progress info (not -v on file.mv)
+
+- Support for subfolders (input)
+
+- Support for subfolders (output)?
+
+- Just handle image files
+
+- User defined pattern for folder and file names
+
+- Delete files after successful copy and rename
+
+- Tests
+
+- use Logger for output messages (STDOUT for CLI, Shoes.console for Shoes-app)
+
+- ...
