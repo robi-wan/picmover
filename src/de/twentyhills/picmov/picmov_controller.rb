@@ -1,4 +1,5 @@
 require 'picmov'
+require 'settings'
 
 class PicmovController < ApplicationController
   set_model 'PicmovModel'
@@ -11,7 +12,18 @@ class PicmovController < ApplicationController
     now = Time.now
     file = "#{now.strftime(time_mapper.file_pattern)}_DSC2134.jpg"
     transfer[:rename_example]="DSC2134.jpg => #{File.join(now.strftime(time_mapper.folder_pattern), file)}"
+    begin
+      if PicMov::Settings.configured?
+        model.source_folder = PicMov::Settings.source_folder
+        model.target_folder = PicMov::Settings.target_folder
+        update_view()
+      end
+    rescue Exception => e
+      #todo
+      puts e
+    end
     signal(:init)
+
   end
 
 
@@ -37,6 +49,7 @@ class PicmovController < ApplicationController
     signal(:start_moving)
     repaint_while do
       model.move_pictures() do |file, percent|
+        save_setting()
         #if "progress".eql?(evt.property_name) then
         transfer[:progress]= percent*100
         transfer[:file]=file.source
@@ -97,7 +110,11 @@ class PicmovController < ApplicationController
 #
 #  end
 
-  def folder_chooser
+    def save_setting
+      PicMov::Settings.save_settings(model.source_folder, model.target_folder)
+    end
+
+    def folder_chooser
     #@folder_chooser ||=com.jidesoft.swing.FolderChooser.new()
     com.jidesoft.swing.FolderChooser.new()
   end
