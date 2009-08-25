@@ -7,8 +7,6 @@ This is app is far from ready but is useful for the simple case...
 
 TODO
 
-- Update model with start_button_action_performed
-
 - validate folders on "start" (no empty folders, ... (no empty folders, ...))
 
 - count files in selected folder (after folder_chooser and focus_lost [manual edit of folders])
