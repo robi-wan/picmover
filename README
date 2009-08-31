@@ -1,4 +1,4 @@
-== JPicMov
+== PicMover
 
 A simple tool for copying and renaming images from cameras. It started as an CLI tool (see pivmoc).
 Recently I added a (second) desktop application layer. This layer uses Swing and JRuby.
