@@ -9,7 +9,7 @@ class PicmovModel
   end
 
   def move_pictures(&progress)
-    mover = PictureMover.new(@source_folder, @target_folder)
+    mover = PicMov::PictureMover.new(@source_folder, @target_folder)
               #save_setting()
     mover.move &progress
 

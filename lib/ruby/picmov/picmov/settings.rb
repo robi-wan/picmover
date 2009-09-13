@@ -50,7 +50,7 @@ module PicMov
         else
           user_data_directory = File.join File.expand_path(Dir.getwd), "data"
         end
-      else # covers for example 'java'
+      else
         user_data_directory = File.expand_path(File.join("~", ".picmov"))
       end
 

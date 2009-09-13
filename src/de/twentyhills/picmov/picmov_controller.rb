@@ -1,5 +1,4 @@
 require 'picmov'
-require 'settings'
 
 class PicmovController < ApplicationController
   set_model 'PicmovModel'
@@ -7,11 +6,6 @@ class PicmovController < ApplicationController
   set_close_action :exit
 
   def init_view
-    # todo FileNameModifier des PicMover verwenden!
-    time_mapper = TimeMapper.new
-    now = Time.now
-    file = "#{now.strftime(time_mapper.file_pattern)}_DSC2134.jpg"
-    transfer[:rename_example]="DSC2134.jpg => #{File.join(now.strftime(time_mapper.folder_pattern), file)}"
     begin
       if PicMov::Settings.configured?
         model.source_folder = PicMov::Settings.source_folder
@@ -22,8 +16,13 @@ class PicmovController < ApplicationController
       #todo
       puts e
     end
+    # moved this code after update_view(): update_view cleans transfer-array
+    # todo FileNameModifier des PicMover verwenden!
+    time_mapper = PicMov::TimeMapper.new
+    now = Time.now
+    file = "#{now.strftime(time_mapper.file_pattern)}_DSC2134.jpg"
+    transfer[:rename_example]="DSC2134.jpg => #{File.join(now.strftime(time_mapper.folder_pattern), file)}"
     signal(:init)
-
   end
 
 
@@ -87,28 +86,6 @@ class PicmovController < ApplicationController
       update_view
     end
   end
-
-#  def start_button_action_performed(event)
-#    signal(:start_moving)
-#  class MySwingWorker < javax.swing.SwingWorker
-#    #attr_accessor :button
-#    def doInBackground
-#      (1..10).each do |n|
-#        puts "thread #{self.hashCode} working"
-#        transfer[:progress]= n#.new_value
-#        signal(:progress)
-#        sleep(1)
-#      end
-#      #self.button.text = "Completed"
-#      signal(:end_moving)
-#    end
-#  end
-#
-#  sw = MySwingWorker.new
-#  #sw.button = start
-#  sw.execute
-#
-#  end
 
     def save_setting
       PicMov::Settings.save_settings(model.source_folder, model.target_folder)
